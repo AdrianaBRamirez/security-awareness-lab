@@ -1,54 +1,79 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Assignment Submission Status</title>
+<title>Shared Album Invitation</title>
 <style>
 body {
   font-family: Arial, sans-serif;
-  background: #f5f5f5;
+  background: #f5f6f8;
   margin: 0;
-}
-header {
-  background: #a6192e;
-  color: white;
-  padding: 20px;
-  font-size: 22px;
+  color: #222;
 }
 main {
   background: white;
-  max-width: 520px;
-  margin: 60px auto;
-  padding: 30px;
-  border: 1px solid #ddd;
+  max-width: 440px;
+  margin: 70px auto;
+  padding: 35px;
+  border-radius: 14px;
+  box-shadow: 0 4px 18px #00000012;
+  text-align: center;
+}
+h1 { font-size: 25px; }
+input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 12px;
+  margin: 12px 0;
+  border: 1px solid #ccc;
   border-radius: 6px;
 }
 button {
-  background: #a6192e;
+  background: #2563eb;
   color: white;
-  border: 0;
-  padding: 12px 20px;
+  padding: 13px 25px;
+  border: none;
+  border-radius: 7px;
   cursor: pointer;
 }
+#result { display: none; }
 </style>
 </head>
 <body>
-<header>Student Assignment Portal</header>
 <main>
-<h2>Assignment Submission Alert</h2>
-<p>We could not verify the status of your recent assignment submission.</p>
-<p>Please review this notification to confirm your submission status.</p>
-<button onclick="document.getElementById('result').hidden=false">
-Review Notification
-</button>
-<div id="result" hidden>
-<h3>Phishing Awareness Simulation</h3>
-<p>This was a cybersecurity training exercise.</p>
-<p>Unexpected assignment warnings can be used to trick students into visiting fraudulent websites.</p>
-<p>Always verify academic notifications directly through Canvas.</p>
-<p>No login credentials were requested or collected.</p>
-</div>
+  <div id="invitation">
+    <div style="font-size:45px">📷</div>
+    <h1>Weekend Highlights</h1>
+    <p>A photo album invitation is waiting for you.</p>
+    <p>Enter a fictional display name to continue.</p>
+    <input id="nickname" placeholder="Fictional display name">
+    <button onclick="showResult()">View Album</button>
+  </div>
+
+  <div id="result">
+    <h1>Phishing Awareness Simulation</h1>
+    <p>This was a simulated phishing scenario.</p>
+    <p>Unexpected shared albums can be used to
+    encourage people to open suspicious links.</p>
+    <p>Always verify the sender and website address.</p>
+    <p>No passwords or personal information were collected.</p>
+    <a id="feedback" href="#">Complete awareness check</a>
+  </div>
 </main>
+<script>
+const params = new URLSearchParams(location.search);
+const id = params.get("recipient_id") || "test";
+
+document.getElementById("feedback").href =
+  "https://tally.so/r/5X4MXN?recipient_id=" +
+  encodeURIComponent(id);
+
+function showResult() {
+  document.getElementById("invitation").style.display = "none";
+  document.getElementById("result").style.display = "block";
+}
+</script>
 </body>
 </html>
