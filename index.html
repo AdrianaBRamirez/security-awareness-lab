@@ -4,75 +4,337 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Shared Album Invitation</title>
+<title>Notification Center</title>
 <style>
+* { box-sizing: border-box; }
 body {
-  font-family: Arial, sans-serif;
-  background: #f5f6f8;
   margin: 0;
-  color: #222;
+  background: #f5f8fd;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #25344b;
+}
+header {
+  background: white;
+  border-bottom: 1px solid #e3eaf3;
+  padding: 19px 7%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logo {
+  color: #245ca8;
+  font-size: 18px;
+  font-weight: 700;
+}
+.header-note {
+  font-size: 12px;
+  color: #8491a4;
 }
 main {
+  max-width: 550px;
+  margin: 65px auto;
+  padding: 0 18px;
+}
+.card {
   background: white;
-  max-width: 440px;
-  margin: 70px auto;
-  padding: 35px;
-  border-radius: 14px;
-  box-shadow: 0 4px 18px #00000012;
-  text-align: center;
+  border: 1px solid #e4eaf3;
+  border-radius: 13px;
+  box-shadow: 0 8px 28px #244a8010;
+  padding: 36px;
 }
-h1 { font-size: 25px; }
-input {
-  box-sizing: border-box;
-  width: 100%;
-  padding: 12px;
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 55px;
+  height: 55px;
+  border-radius: 12px;
+  background: #eaf2ff;
+  font-size: 26px;
+}
+.eyebrow {
+  margin-top: 24px;
+  color: #3973bd;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+h1 {
+  font-size: 25px;
+  line-height: 1.3;
   margin: 12px 0;
-  border: 1px solid #ccc;
-  border-radius: 6px;
 }
-button {
-  background: #2563eb;
+.description {
+  color: #64748b;
+  font-size: 14px;
+  line-height: 1.8;
+}
+.details {
+  margin: 26px 0;
+  padding: 17px;
+  border: 1px solid #e8edf5;
+  border-radius: 8px;
+  background: #fafcff;
+}
+.details strong {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 7px;
+}
+.details span {
+  font-size: 13px;
+  color: #64748b;
+}
+label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin: 22px 0 8px;
+}
+input {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #d8e1ed;
+  border-radius: 7px;
+  font-size: 14px;
+}
+button, .action {
+  display: block;
+  width: 100%;
+  background: #2867b2;
   color: white;
-  padding: 13px 25px;
   border: none;
   border-radius: 7px;
+  padding: 14px;
+  margin-top: 20px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
   cursor: pointer;
 }
+button:hover, .action:hover {
+  background: #1d528f;
+}
+.note {
+  color: #8794a7;
+  font-size: 11px;
+  line-height: 1.6;
+  text-align: center;
+  margin-top: 20px;
+}
 #result { display: none; }
+footer {
+  text-align: center;
+  font-size: 12px;
+  color: #9aa7b9;
+  padding: 25px;
+}
+@media(max-width:600px) {
+  main { margin-top: 30px; }
+  .card { padding: 25px; }
+}
 </style>
 </head>
 <body>
-<main>
-  <div id="invitation">
-    <div style="font-size:45px">📷</div>
-    <h1>Weekend Highlights</h1>
-    <p>A photo album invitation is waiting for you.</p>
-    <p>Enter a fictional display name to continue.</p>
-    <input id="nickname" placeholder="Fictional display name">
-    <button onclick="showResult()">View Album</button>
-  </div>
 
-  <div id="result">
-    <h1>Phishing Awareness Simulation</h1>
-    <p>This was a simulated phishing scenario.</p>
-    <p>Unexpected shared albums can be used to
-    encourage people to open suspicious links.</p>
-    <p>Always verify the sender and website address.</p>
-    <p>No passwords or personal information were collected.</p>
-    <a id="feedback" href="#">Complete awareness check</a>
-  </div>
+<header>
+  <div class="logo">Notification Center</div>
+  <div class="header-note">Notification Review</div>
+</header>
+
+<main>
+  <section class="card" id="landing">
+    <div class="icon" id="pageIcon">✉️</div>
+    <div class="eyebrow" id="category"></div>
+    <h1 id="title"></h1>
+    <p class="description" id="description"></p>
+
+    <div class="details">
+      <strong id="detailTitle"></strong>
+      <span id="detailText"></span>
+    </div>
+
+    <label for="fullName">Full Name</label>
+    <input id="fullName"
+      type="text"
+      placeholder="Enter your full name"
+      autocomplete="off">
+
+    <button id="continueButton"
+      onclick="continueReview()"></button>
+
+    <p class="note">
+      This page does not request or collect passwords.
+      Names entered here are not saved or transmitted.
+    </p>
+  </section>
+
+  <section class="card" id="result">
+    <div class="icon">🛡️</div>
+    <div class="eyebrow">Security Awareness</div>
+    <h1>Security Awareness Simulation</h1>
+
+    <p class="description">
+      This notification was part of an educational
+      phishing-awareness exercise.
+    </p>
+
+    <div class="details">
+      <strong>What should you look for?</strong>
+      <span id="lesson"></span>
+    </div>
+
+    <p class="description">
+      No passwords were requested or collected.
+      Your name was not saved.
+    </p>
+
+    <a class="action" id="feedback">
+      Complete Awareness Check
+    </a>
+  </section>
 </main>
+
+<footer>
+  Notification Center · Educational Simulation
+</footer>
+
 <script>
-const params = new URLSearchParams(location.search);
-const id = params.get("recipient_id") || "test";
+const scenarios = {
+  "01": {
+    icon: "📷",
+    category: "Shared Content",
+    title: "A photo album has been shared with you",
+    description: "A shared album invitation is available for review.",
+    detailTitle: "Weekend Highlights",
+    detailText: "Photo album invitation",
+    button: "View Shared Album",
+    lesson: "Verify who shared a photo album before opening unexpected links."
+  },
+  "02": {
+    icon: "📦",
+    category: "Delivery Update",
+    title: "Review your delivery notification",
+    description: "An update is available regarding a recent delivery.",
+    detailTitle: "Delivery Status",
+    detailText: "Notification awaiting review",
+    button: "Review Delivery",
+    lesson: "Check delivery information directly through the retailer or carrier."
+  },
+  "03": {
+    icon: "💼",
+    category: "Career Opportunity",
+    title: "New internship opportunity",
+    description: "An internship opportunity is available for your review.",
+    detailTitle: "Opportunity Details",
+    detailText: "Position information available",
+    button: "View Opportunity",
+    lesson: "Verify recruiters and job postings through official company websites."
+  },
+  "04": {
+    icon: "🎓",
+    category: "Scholarship Notification",
+    title: "Scholarship update available",
+    description: "A scholarship-related notification is ready for review.",
+    detailTitle: "Scholarship Information",
+    detailText: "Application update",
+    button: "Review Scholarship",
+    lesson: "Verify scholarship notices with the actual scholarship provider."
+  },
+  "05": {
+    icon: "🛡️",
+    category: "Security Notification",
+    title: "Account security notice",
+    description: "A security notification is available for review.",
+    detailTitle: "Account Activity",
+    detailText: "Security notice",
+    button: "Review Security Notice",
+    lesson: "Never enter account credentials through an unexpected email link."
+  },
+  "06": {
+    icon: "📄",
+    category: "Shared Document",
+    title: "A document has been shared",
+    description: "A new document invitation is awaiting your review.",
+    detailTitle: "Document Access",
+    detailText: "Shared document invitation",
+    button: "Open Document",
+    lesson: "Confirm the sender and destination before opening shared documents."
+  },
+  "07": {
+    icon: "💳",
+    category: "Refund Notification",
+    title: "Refund notification available",
+    description: "An account refund notification is ready to review.",
+    detailTitle: "Refund Status",
+    detailText: "Account notification",
+    button: "Review Refund",
+    lesson: "Verify unexpected refund offers directly through the relevant organization."
+  },
+  "08": {
+    icon: "📅",
+    category: "Event Invitation",
+    title: "You've received an event invitation",
+    description: "An invitation is available for your review.",
+    detailTitle: "Event Details",
+    detailText: "Invitation awaiting response",
+    button: "View Invitation",
+    lesson: "Unexpected invitations may be used to encourage clicks on suspicious links."
+  },
+  "09": {
+    icon: "🔐",
+    category: "Account Notice",
+    title: "Account access notification",
+    description: "An account-related notification is available.",
+    detailTitle: "Account Status",
+    detailText: "Access notice",
+    button: "Review Account Notice",
+    lesson: "Open account settings directly instead of trusting unexpected access notices."
+  },
+  "10": {
+    icon: "📚",
+    category: "Submission Update",
+    title: "Submission status notification",
+    description: "An update regarding a recent submission is available.",
+    detailTitle: "Submission Details",
+    detailText: "Status update",
+    button: "Review Submission",
+    lesson: "Verify assignment notices directly through your learning platform."
+  }
+};
+
+const params = new URLSearchParams(window.location.search);
+const scenarioId = params.get("scenario") || "01";
+const recipientId = params.get("recipient_id") || "test";
+const data = scenarios[scenarioId] || scenarios["01"];
+
+document.getElementById("pageIcon").textContent = data.icon;
+document.getElementById("category").textContent = data.category;
+document.getElementById("title").textContent = data.title;
+document.getElementById("description").textContent = data.description;
+document.getElementById("detailTitle").textContent = data.detailTitle;
+document.getElementById("detailText").textContent = data.detailText;
+document.getElementById("continueButton").textContent = data.button;
+document.getElementById("lesson").textContent = data.lesson;
 
 document.getElementById("feedback").href =
   "https://tally.so/r/5X4MXN?recipient_id=" +
-  encodeURIComponent(id);
+  encodeURIComponent(recipientId);
 
-function showResult() {
-  document.getElementById("invitation").style.display = "none";
+function continueReview() {
+  const name = document.getElementById("fullName").value.trim();
+
+  if (!name) {
+    alert("Please enter your name to continue.");
+    return;
+  }
+
+  document.getElementById("fullName").value = "";
+  document.getElementById("landing").style.display = "none";
   document.getElementById("result").style.display = "block";
+  window.scrollTo(0, 0);
 }
 </script>
 </body>
